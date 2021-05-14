@@ -15,9 +15,20 @@ class Form extends React.Component {
     // console.log(e);
     e.preventDefault();
     let url  = e.target.value;
+    // let http = e.target.name;
     console.log(url);
     this.setState({url});
+    // this.setState({http});
   }
+
+  //make function for the radio buttons
+
+  handleRest = (e) => {
+    let http = e.target.value;
+    this.setState({http});
+  }
+  
+  
 
 
   //function for submit to go get information
@@ -47,20 +58,37 @@ class Form extends React.Component {
       <form onSubmit={this.handleSubmit}>
         <div id="urlentry">
           <input type="text" name="url" placeholder="type url here" onChange={this.handleUrlInput}/>
-          <button type="submit"> Submit </button>
+          <button type="submit" > Submit </button>
         </div>
-        {/* <div id="httpentry"> 
-          <label for="get">GET<input type="radio" id="get" value="get" name="http" /></label>
-        </div> */}
+        <div id="httpentry"> 
+          <label>
+          <input type="radio" id="get" value="get" name="http" onClick={this.handleRest}/>
+          <span>GET</span>
+          </label>
+
+          <label>
+          <input type="radio" id="post" value="post" name="http" onClick={this.handleRest} />
+          <span>POST</span>
+          </label>
+
+          <label>
+          <input type="radio" id="put" value="put" name="http" onClick={this.handleRest} />
+          <span>PUT</span>
+          </label>
+
+          <label>
+          <input type="radio" id="delete" value="delete" name="http" onClick={this.handleRest}/>
+          <span>DELETE</span>
+          </label>
+
+        </div>
       </form>
 
       <div>
-        {/* {this.state.url} {this.state.http} */}
-        {/* loop thru the array to render it?  */}
-
-        {this.state.formInput.map((input ) => {
+        {this.state.formInput.map((input, i) => {
           return (
-            <p>{input.url}</p>
+            //this key needs to generate new key each time
+            <p key={i}> {input.http} {input.url}</p>
           )
         })}
       </div>
