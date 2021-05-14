@@ -1,4 +1,5 @@
 import React from 'react';
+import './form.scss';
 
 class Form extends React.Component {
   constructor(props){
@@ -28,9 +29,6 @@ class Form extends React.Component {
     this.setState({http});
   }
   
-  
-
-
   //function for submit to go get information
   //takes in url state
 
@@ -84,7 +82,7 @@ class Form extends React.Component {
         </div>
       </form>
 
-      <div>
+      <div id="entered-log">
         {this.state.formInput.map((input, i) => {
           return (
             //this key needs to generate new key each time
