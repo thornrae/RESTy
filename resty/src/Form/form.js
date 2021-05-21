@@ -14,7 +14,8 @@ class Form extends React.Component {
     super(props);
     this.state = {
       url: "url input",
-      http: "http input",
+      rest: "http input",
+      // results: []
     }
   }
 
@@ -30,40 +31,33 @@ class Form extends React.Component {
     let rest = e.target.value;
     this.setState({rest});
   }
-  
-  //function for submit to go get information
-  //takes in url state
 
-  //this is what renders it to the page
-  handleSubmit = (e) => {
+  // sendAppResults = (e) => {
+  //   this.props.giveAppResponse(this.state.results);
+  // }
+
+  fetchData = async (e) => {
     e.preventDefault();
-    let result = {
-      url: this.state.url, 
-      rest: this.state.rest
-    }
-    this.setState(
-      {formInput: [...this.state.formInput, result]}
-    )
-  }
+    const response = await axios ({
+      method: this.state.rest || 'get',
+      url: this.state.url,
+      // data: options.body && JSON.parse(options.body)
+    });
 
-  handleAPI = async () => {
-    let url = this.state.url;
-    let rest = this.state.http;
-    let response = await axios.rest(url);
-    let pokemon = response.data.results;
-    this.setState({pokemon})
+    const results = response.data;
+    this.props.giveAppResponse(results);
+
   }
 
   render () {
-    console.log(this.state.formInput);
-
     return (
       <>
-      <form onClick={this.handleAPI}>
+      <form onSubmit={this.fetchData}>
         <div id="urlentry">
           <input type="text" name="url" placeholder="type url here" onChange={this.handleUrlInput}/>
-          <button type="submit" > Submit </button>
         </div>
+        <button type="submit" > Submit </button>
+
         <div id="restentry"> 
           <label>
           <input type="radio" id="get" value="get" name="rest" onClick={this.handleRest}/>
@@ -87,21 +81,10 @@ class Form extends React.Component {
 
         </div>
       </form>
-
-      {/* <div id="entered-log">
-        {this.state.formInput.map((input,idx) => {
-          return (
-            //this key needs to generate new key each time
-            <p> {input.rest} {input.url}</p>
-          )
-        })}
-      </div> */}
-
       </>
 
     )
   }
-
 }
 
 export default Form;

@@ -15,16 +15,23 @@ class App extends React.Component {
     super(props);
     this.state = {
       results: [],
-      count: 0,
     }
   }
+
+  handleState = (info) => {
+    this.setState({
+      results: [info]
+    })
+  }
+
+
   
   render() {
     return (
       <>
         <Header />
-        <Form />
-        <Results/>
+        <Form giveAppResponse={this.handleState}/>
+        <Results results={this.state.results} />
         <Footer />
       </>
   );

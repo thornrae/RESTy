@@ -6,20 +6,21 @@ import JSONPretty from 'react-json-pretty';
 // expects count (what is count?)
 // renders result header & result body as pretty JSON
 
-function Pokemon (props) {
-  
-}
+class Results extends React.Component {
+  render() {
+    // console.log('results prop', this.props.results);
+    return (
+      <>
+      <h2>api output</h2>
+      <div>
+        { 
+          <JSONPretty data={this.props.results}></JSONPretty>
+        }
+      </div>
+      </>
+    )
+  }
+}  
 
+export default Results;
 
-
-export default Pokemon;
-
-
-   {/* <div id="entered-log">
-        {this.state.formInput.map((input,idx) => {
-          return (
-            //this key needs to generate new key each time
-            <p> {input.rest} {input.url}</p>
-          )
-        })}
-      </div> */}
